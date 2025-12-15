@@ -77,7 +77,7 @@ const updateAvatar = async (avatar) => {
 
 const updateCoverImage = async (coverImage) => {
     try {
-        const response = await axios.patch('/api/v1/users/cover-image', {coverImage})
+        const response = await api.patch('/api/v1/users/cover-image', {coverImage})
         return response.data
     } catch (error) {
         console.log('Authentication Service :: updateCoverImage error : ', error.response?.data?.message || error.message);

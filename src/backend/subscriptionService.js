@@ -47,7 +47,7 @@ const getChannelProfile = async (channelId) => {
 
 const getUserChannelProfile = async () => {
     try {
-        const result = await axios.get('/api/v1/subscriptions/user-channel')
+        const result = await api.get('/api/v1/subscriptions/user-channel')
         return result.data.data
     } catch (error) {
         console.log('Subscription Service :: getUserChannelProfile error : ', error.response?.data?.message || error.message);
