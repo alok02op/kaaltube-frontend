@@ -26,7 +26,7 @@ const uploadOnCloudinary = async (file, type = 'image') => {
 
     try {
         const { data } = await api.post(
-            'https://api.cloudinary.com/v1_1/${conf.cloud_name}/${type}/upload',
+            `https://api.cloudinary.com/v1_1/${conf.cloud_name}/${type}/upload`,
             formData
         )
         return data.public_id;
