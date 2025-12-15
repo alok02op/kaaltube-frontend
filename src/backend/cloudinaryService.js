@@ -6,6 +6,7 @@ const api = axios.create({
     withCredentials: true
 });
 
+
 const getImageUrl = async (public_id) => {
     try {
         const response = await api.post('/get-image-url', { public_id })
@@ -25,7 +26,7 @@ const uploadOnCloudinary = async (file, type = 'image') => {
     formData.append("cloud_name", conf.cloud_name);
 
     try {
-        const { data } = await api.post(
+        const { data } = await axios.post(
             `https://api.cloudinary.com/v1_1/${conf.cloud_name}/${type}/upload`,
             formData
         )
