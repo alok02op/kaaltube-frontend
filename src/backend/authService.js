@@ -28,7 +28,7 @@ const loginUser = async ({username, email, password}) => {
 
 const logoutUser = async () => {
     try {
-        await api.post('/api/v1/users/logout')
+        await api.patch('/api/v1/users/logout')
     } catch (error) {
         console.log('Backend Service :: logoutUser error : ', error.response?.data?.message || error.message);
         throw error

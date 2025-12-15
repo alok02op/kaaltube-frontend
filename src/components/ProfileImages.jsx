@@ -90,7 +90,7 @@ const ProfileImages = ({ onAvatarSubmit, onCoverSubmit }) => {
       const coverImageId = await uploadCoverImage(data?.coverImage[0]);
       if (!coverImageId) return;
       const response = await onCoverSubmit(coverImageId);
-      dispatch(update({coverImage: response.coverImageUrl}))
+      dispatch(update({coverImage: response.data.coverImageUrl}))
       resetCover()
       showAlert('success', response.message);
     } catch (error) {
@@ -106,7 +106,7 @@ const ProfileImages = ({ onAvatarSubmit, onCoverSubmit }) => {
       <form onSubmit={handleCoverSubmit(submitCover)} className="relative w-full">
         <div className="relative h-44 sm:h-56 md:h-64 w-full rounded-2xl overflow-hidden shadow-md">
           <img src={coverPreview || null} alt="Cover" className="w-full h-full object-cover" />
-          <label className="absolute bottom-3 right-3 bg-white/90 hover:bg-white text-sm px-3 py-1 rounded cursor-pointer shadow">
+          <label className="absolute z-30 bottom-3 right-3 bg-white/90 hover:bg-white text-sm px-3 py-1 rounded cursor-pointer shadow">
             Change Cover
             <Input
               type='file'

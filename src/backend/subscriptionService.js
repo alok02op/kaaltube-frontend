@@ -18,7 +18,7 @@ const getSubscribedChannels = async () => {
 
 const subscribeChannel = async (channelId) => {
     try {
-        const result = await axios.post('/api/v1/subscriptions/subscribe', { channelId })
+        const result = await api.post('/api/v1/subscriptions/subscribe', { channelId })
         return result.data.data
     } catch (error) {
         console.log('Subscription Service :: subscribeChannel error : ', error.response?.data?.message || error.message);
