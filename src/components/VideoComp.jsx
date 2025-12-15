@@ -34,6 +34,7 @@ const VideoComp = ({ video, relatedVideos, currentTime, comments, setComments })
   const isSubscribed = subscribedChannels.some((ch) => ch.id === video.owner.id);
 
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const [showComments, setShowComments] = useState(false);
 
   const handleSubscribeClick = async () => {
     try {
@@ -161,7 +162,7 @@ const VideoComp = ({ video, relatedVideos, currentTime, comments, setComments })
   return (
     <div className="w-full flex flex-col lg:flex-row gap-6 p-4">
       {/* LEFT SIDE */}
-      <div className="flex-1 flex flex-col min-h-screen overflow-y-auto pr-2">
+      <div className="flex-1 flex flex-col overflow-y-auto pr-2">
         {/* Video Player */}
         <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden">
           <video
@@ -222,7 +223,10 @@ const VideoComp = ({ video, relatedVideos, currentTime, comments, setComments })
           </div>
           {/* Channel Info Section */}
           <div className="flex justify-between items-center mt-8">
-            <div className="flex items-center gap-3">
+            <div 
+              className="flex items-center gap-3 hover:cursor-pointer"
+              onClick={() => navigate(`/channel/${video.owner.id}`)}
+            >
               <Avatar
                 src={video?.owner?.avatar}
                 name={video?.owner?.fullName || video?.owner?.username}
@@ -239,7 +243,10 @@ const VideoComp = ({ video, relatedVideos, currentTime, comments, setComments })
                 cursor-pointer ${ isSubscribed ? "bg-gray-200 hover:bg-gray-300 text-gray-700" 
                 : "bg-red-600 hover:bg-red-700 text-white" }
               `}
-              onClick={handleSubscribeClick}
+              onClick={(e) => {
+                e.stopPropagation()
+                handleSubscribeClick()
+              }}
             >
               {isSubscribed ? "Subscribed" : "Subscribe"}
             </Button>
@@ -250,53 +257,75 @@ const VideoComp = ({ video, relatedVideos, currentTime, comments, setComments })
         <div className="border-t my-4" />
 
         {/* Comments */}
-        <div className="pb-20">
-          <h2 className="text-lg font-semibold mb-3">Comments</h2>
-          <form
-            onSubmit={handleSubmit(handleCommentSubmit)}
-            className="flex flex-col sm:flex-row gap-2 mb-4"
-          >
-            <Textarea
-              placeholder="Add a comment..."
-              className="flex-1 resize-none"
-              {...register("content", {
-                required: "Comment can't be empty",
-                minLength: {
-                  value: 1,
-                  message: "Comment can't be empty"
-                }
-              })}
-            />
-
+        <div>
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold">Comments</h2>
             <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="self-end sm:self-auto cursor-pointer"
+              type="button"
+              variant="secondary"
+              onClick={() => setShowComments(prev => !prev)}
+              className="text-sm"
             >
-              Comment
+              {showComments ? "Hide comments" : "Show comments"}
             </Button>
-          </form>
-
-          {errors.content && (
-            <p className="text-sm text-red-500 mt-1">
-              {errors.content.message}
-            </p>
-          )}
-          {/* Comments will go here */}
-          <div className="space-y-4">
-            {comments && comments.length > 0 ? (
-              comments.map((comment) => (
-                <CommentCard key={comment.id} comment={comment} onDelete={handleCommentDelete} onLike={handleCommentLike} />
-              ))
-            ) : (
-              <p className="text-sm text-gray-500">No comments yet.</p>
-            )}
           </div>
+
+          {showComments && (
+            <>
+              {/* Comment Form */}
+              <form
+                onSubmit={handleSubmit(handleCommentSubmit)}
+                className="flex flex-col sm:flex-row gap-2 mb-4"
+              >
+                <Textarea
+                  placeholder="Add a comment..."
+                  className="flex-1 resize-none"
+                  {...register("content", {
+                    required: "Comment can't be empty",
+                    minLength: {
+                      value: 1,
+                      message: "Comment can't be empty"
+                    }
+                  })}
+                />
+
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="self-end sm:self-auto cursor-pointer"
+                >
+                  Comment
+                </Button>
+              </form>
+
+              {errors.content && (
+                <p className="text-sm text-red-500 mt-1">
+                  {errors.content.message}
+                </p>
+              )}
+
+              {/* Comments List */}
+              <div className="space-y-4">
+                {comments && comments.length > 0 ? (
+                  comments.map(comment => (
+                    <CommentCard
+                      key={comment.id}
+                      comment={comment}
+                      onDelete={handleCommentDelete}
+                      onLike={handleCommentLike}
+                    />
+                  ))
+                ) : (
+                  <p className="text-sm text-gray-500">No comments yet.</p>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </div>
 
       {/* RIGHT SIDE */}
-      <div className="lg:w-[360px] w-full h-[calc(100vh-2rem)] overflow-y-auto sticky top-4">
+      <div className="lg:w-[360px] w-full overflow-y-auto sticky top-4">
         <h2 className="text-lg font-semibold mb-2">Related Videos</h2>
         <VideoGrid videos={relatedVideos} showEdits={false} />
       </div>

@@ -47,7 +47,7 @@ const deleteComment = async (commentId) => {
 
 const toggleCommentLike = async (commentId) => {
     try {
-        const response = await api.patch('/api/v1/comments/lik', {commentId})
+        const response = await api.patch('/api/v1/comments/like', {commentId})
         return response.data.data
     } catch (error) {
         console.log('Comment Service :: toggleLikeComment error : ', error.response?.data?.message || error.message);
