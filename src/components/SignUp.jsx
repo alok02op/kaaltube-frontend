@@ -77,6 +77,7 @@ const SignUp = () => {
             coverImage: fileInfo.coverImageId
         }
         try {
+            console.log(userDetails);
             const userId = await authService.registerUser(userDetails)
             console.log(userId);
             navigate(`/verify-otp?userId=${userId}`)
