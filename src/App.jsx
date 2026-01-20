@@ -98,7 +98,7 @@ const App = () => {
             <div className="fixed h-[64px] top-0 left-0 right-0 z-50 flex items-center bg-white shadow-md p-2">
                 {/* Hamburger button */}
                 <button
-                    className="p-2 bg-gray-900 text-white rounded-md shadow-md mr-4 cursor-pointer"
+                    className="p-1.5 sm:p-2 bg-gray-900 text-white rounded-md shadow-md mr-1.5 sm:mr-4 cursor-pointer"
                     onClick={() => setSidebarOpen(!sidebarOpen)}
                 >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
