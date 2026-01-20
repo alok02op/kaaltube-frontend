@@ -1,19 +1,16 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { login as authLogin } from '../store'
 import { 
     Button, Input, Logo, AlertPopup,
     Card, CardHeader, CardContent, CardFooter, CardTitle
 } from '@/components'
 import { authService, cloudService } from '../backend'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
 import Loader from '../components/utils/Loader.jsx'
 import { Loader2, Upload } from "lucide-react";
 
 const SignUp = () => {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
     const [fileInfo, setFileInfo] = useState({
         avatarId: '',
         coverImageId: '',
@@ -80,9 +77,8 @@ const SignUp = () => {
             coverImage: fileInfo.coverImageId
         }
         try {
-            const loggedInUser = await authService.registerUser(userDetails)
-            dispatch(authLogin(loggedInUser))
-            navigate('/')
+            const userId = await authService.registerUser(userDetails)
+            navigate(`/verify-otp?userId=${userId}`)
         } catch (err) {
             setError(err.response?.data?.message || "Something went wrong")
         } finally {

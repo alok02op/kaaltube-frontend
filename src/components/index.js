@@ -39,6 +39,7 @@ import ChannelProfile from './ChannelProfile.jsx'
 import CommentCard from './CommentCard.jsx'
 import SearchChannelCard from './SearchChannelCard.jsx'
 import SearchVideoCard from './SearchVideoCard.jsx'
+import VerifyOtp from './verifyOtp.jsx'
 
 export {
     Input,
@@ -80,5 +81,6 @@ export {
     ChannelProfile,
     CommentCard,
     SearchChannelCard,
-    SearchVideoCard
+    SearchVideoCard,
+    VerifyOtp
 }

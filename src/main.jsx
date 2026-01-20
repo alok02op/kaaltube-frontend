@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { Provider } from 'react-redux'
 import { store } from './store'
-import { AuthLayout, UpdateVideo } from './components'
+import { AuthLayout, UpdateVideo, VerifyOtp } from './components'
 import App from './App.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import {
@@ -41,6 +41,9 @@ const router = createBrowserRouter([
             <SignUp />
           </AuthLayout>
         )
+      },{
+        path: '/verify-otp',
+        element: <VerifyOtp />
       },{
         path:'/profile',
         element: (

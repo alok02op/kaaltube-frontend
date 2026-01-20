@@ -8,10 +8,30 @@ const api = axios.create({
 
 const registerUser = async (data) => {
     try {
-        await api.post('/api/v1/users/register', data)        
-        return loginUser({...data});
+        const response = await api.post('/api/v1/users/register', data)
+        return response.data.message
     } catch (error) {
         console.log('Authentication Service :: registerUser error : ', error.response?.data?.message || error.message);
+        throw error
+    }
+}
+
+const verifyOtp = async ({userId, otp}) => {
+    try {
+        const response = await api.post('/api/v1/users/verify-otp', { userId, otp })
+        return response.data.message
+    } catch (error) {
+        console.log('Authentication Service :: verifyOtp error : ', error.response?.data?.message || error.message);
+        throw error
+    }
+}
+
+const resendOtp = async ({userId}) => {
+    try {
+        const response = await api.post('/api/v1/users/resend-otp', { userId })
+        return response.data.message
+    } catch (error) {
+        console.log('Authentication Service :: resendOtp error : ', error.response?.data?.message || error.message);
         throw error
     }
 }
@@ -93,7 +113,9 @@ const authService = {
     changePassword,
     updateProfile,
     updateAvatar,
-    updateCoverImage
+    updateCoverImage,
+    verifyOtp,
+    resendOtp
 }
 
 export default authService

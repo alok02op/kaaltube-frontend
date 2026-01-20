@@ -79,6 +79,7 @@ const SearchBar = ({ initialQuery = "" }) => {
               setQuery("")
               setSuggestions([])
               setShowSuggestions(false)
+              navigate('/')
             }}
             className="p-2 text-gray-500 hover:text-gray-800 transition-colors" 
             aria-label="Clear search" 
