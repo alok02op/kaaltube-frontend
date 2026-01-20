@@ -9,7 +9,7 @@ const api = axios.create({
 const registerUser = async (data) => {
     try {
         const response = await api.post('/api/v1/users/register', data)
-        return response.data.data
+        return response.data.data.userId
     } catch (error) {
         console.log('Authentication Service :: registerUser error : ', error.response?.data?.message || error.message);
         throw error
@@ -28,7 +28,6 @@ const verifyOtp = async ({userId, otp}) => {
 
 const resendOtp = async ({userId}) => {
     try {
-        console.log(userId);
         const response = await api.post('/api/v1/users/resend-otp', { userId })
         return response.data.message
     } catch (error) {
