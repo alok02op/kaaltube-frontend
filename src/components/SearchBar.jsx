@@ -71,7 +71,9 @@ const SearchBar = ({ initialQuery = "" }) => {
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder="Search"
-          className="flex-1 px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-zinc-800"
+          className={`flex-1 px-4 py-2 text-gray-800 focus:outline-none 
+          focus:ring-2 focus:ring-zinc-800 ${query ? 'max-w-48' : ''}`
+          }
         />
         {query && ( 
           <button 

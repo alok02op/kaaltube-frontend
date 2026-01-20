@@ -2,10 +2,13 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { LogoutBtn } from '../components'
 import { Button } from '@/components/ui/button'
+import { useLocation } from "react-router-dom";
+
 
 const Sidebar = ({ sidebarOpen, topBarHeight = '64' }) => {
   const authStatus = useSelector(state => state.auth.status)
   const navigate = useNavigate();
+  const location = useLocation();
 
   const navItems = [
     { name: 'Home', route: '/', active: true },
@@ -21,10 +24,10 @@ const Sidebar = ({ sidebarOpen, topBarHeight = '64' }) => {
   return (
     <aside
       style={{ top: `${topBarHeight}px` }}
-      className={`fixed left-0 h-[calc(100vh-${topBarHeight}px)] w-64 bg-zinc-900 text-white z-40 transform transition-transform duration-300
+      className={`fixed left-0 w-64 h-full bg-zinc-900 text-white z-40 transform transition-transform duration-300
                   ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
     >
-      <div className="flex flex-col h-full min-h-screen">
+      <div className={`flex flex-col justify-start`}>
         {/* Navigation */}
         <ul className="flex flex-col gap-2 p-4 flex-1">
           {navItems.map(
@@ -33,7 +36,12 @@ const Sidebar = ({ sidebarOpen, topBarHeight = '64' }) => {
                 <li key={item.name}>
                   <Button
                     variant="ghost"
-                    className="w-full justify-start px-4 py-2 rounded hover:bg-blue-700 hover:text-white cursor-pointer transition-colors"
+                    className={`w-full justify-start px-4 py-2 rounded cursor-pointer transition-colors
+                        ${location.pathname === item.route ? 
+                          "bg-white text-black" : 
+                          "hover:bg-blue-700 hover:text-white text-white"
+                        }
+                    `}
                     onClick={() => navigate(item.route)}
                   >
                     {item.name}

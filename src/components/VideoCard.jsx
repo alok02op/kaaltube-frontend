@@ -139,7 +139,7 @@ const VideoCard = ({ video, owner, showEdits, showAlert, liked, watchHistory, cr
             <Button
               variant="ghost"
               size="sm"
-              className="p-1 text-gray-700 hover:bg-gray-200 rounded-full cursor-pointer"
+              className="p-1 text-gray-700 bg-gray-200 rounded-full cursor-pointer"
               onClick={(e) => { 
                 e.stopPropagation(); 
                 setMenuOpen(!menuOpen); 
