@@ -28,6 +28,7 @@ const verifyOtp = async ({userId, otp}) => {
 
 const resendOtp = async ({userId}) => {
     try {
+        console.log(userId);
         const response = await api.post('/api/v1/users/resend-otp', { userId })
         return response.data.message
     } catch (error) {
