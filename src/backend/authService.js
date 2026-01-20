@@ -9,7 +9,7 @@ const api = axios.create({
 const registerUser = async (data) => {
     try {
         const response = await api.post('/api/v1/users/register', data)
-        return response.data.message
+        return response.data.data
     } catch (error) {
         console.log('Authentication Service :: registerUser error : ', error.response?.data?.message || error.message);
         throw error
