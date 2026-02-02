@@ -38,7 +38,6 @@ const App = () => {
             })
         ])
         .then(async () => {
-            // now user/token is set, safe to call
             try {
                 const videos = await videoService.getWatchHistory();
                 dispatch(setWatchHistory(videos));
