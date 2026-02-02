@@ -5,11 +5,12 @@ import { useSelector, useDispatch } from "react-redux"
 import { update } from "../store"
 import { cloudService } from "../backend"
 import { Loader2, Upload } from "lucide-react";
+import defaultCoverImage from "@/assets/defaultCoverImage.avif";
 
 const ProfileImages = ({ onAvatarSubmit, onCoverSubmit }) => {
   const userData = useSelector(state => state.auth.userData);
   const [avatarPreview, setAvatarPreview] = useState(userData.avatar)
-  const [coverPreview, setCoverPreview] = useState(userData.coverImage)
+  const [coverPreview, setCoverPreview] = useState(userData.coverImage || defaultCoverImage)
   const dispatch = useDispatch();
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const [uploadingCover, setUploadingCover] = useState(false);
