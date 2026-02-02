@@ -70,10 +70,12 @@ const videoSlice = createSlice({
         },
         addToWatchHistory: (state, action) => {
             const video = action.payload;
-            const exists = (state.watchHistory || []).some(v => v.id === video.id);
-            if (!exists) {
-                state.watchHistory.unshift(video);
+            // Hard reset if corrupted (extra safety)
+            if (!Array.isArray(state.watchHistory)) {
+                state.watchHistory = [];
             }
+            state.watchHistory = state.watchHistory.filter(v => v.id !== video.id);
+            state.watchHistory.unshift({ ...video });
         },
         removeFromWatchHistory: (state, action) => {
             state.watchHistory = state.watchHistory.filter(v => v.id !== action.payload);
